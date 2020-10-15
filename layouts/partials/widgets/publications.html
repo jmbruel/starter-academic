@@ -1,0 +1,65 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $pubs_len := len (where $.Data.Pages "Type" "publication") }}
+<!-- Google Scholar -->
+{{ $hindex := 19 }}
+{{ $hindexOld := 14 }}
+{{ $hindexSince := 2015 }}
+{{ $nbPapers := 201 }}
+<!-- DBLP -->
+{{ $dblpJournal := 16}}
+{{ $dblpConf := 72}}
+{{ $dblpCoAuthors := 133 }}
+{{ $lastVisit := "June 24th, 2020" }}
+
+<!-- Publications widget -->
+<div class="row">
+    <p>Note that you can access to the 
+  <a href="http://www.irit.fr/-Publications-?code=528&amp;nom=Bruel%20Jean-Michel">official
+    list</a>
+ from the lab (up to date, but only related to it). 
+  You can access to the 
+  <a href="https://www.researchgate.net/profile/Jean-Michel_Bruel2/publications/">ResearchGate</a>
+  page. 
+  You can also access my 
+  <a href="http://www.irit.fr/~Jean-Michel.Bruel/HdRBruel2006/hdr2006.pdf">Habilitation</a>
+   or my 
+   <a href="http://jmbhome.heroku.com/cv.pdf">resume</a>. 
+   For some indexes and numbers, check those (updated on {{ $lastVisit }}):
+      The <a href="http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/b/Bruel:Jean=Michel.html">DBLP</a> Server
+        ({{ $dblpJournal }} journals, {{ $dblpConf }} conference papers referenced, with {{ $dblpCoAuthors }} different co-authors);
+      <a href="http://scholar.google.com/citations?user=5shVHyoAAAAJ&hl=en">Google Scolar</a> ({{ $nbPapers }} papers, H-index {{ $hindex }}, {{ $hindexOld }} since {{ $hindexSince }}).
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ if gt $pubs_len $page.Params.count }}
+    <p class="view-all">
+      <a href="{{ "/publication/" | relLangURL }}">
+        {{ i18n "more_publications" | markdownify }}
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </p>
+    {{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
+      {{ $.Scratch.Set "recent_pubs" (where (where $.Data.Pages "Type" "publication") ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
+    {{ else }}
+      {{ $.Scratch.Set "recent_pubs" (where $.Data.Pages "Type" "publication") }}
+    {{ end }}
+
+    {{ $recent_pubs := $.Scratch.Get "recent_pubs" }}
+    {{ range first $page.Params.count $recent_pubs }}
+      {{ if eq $page.Params.list_format 1 }}
+        {{ partial "publication_li_classic" . }}
+      {{ else if eq $page.Params.list_format 2 }}
+        {{ partial "publication_li_detailed" . }}
+      {{ else }}
+        {{ partial "publication_li_simple" . }}
+      {{ end }}
+    {{ end }}
+
+  </div>
+</div>
