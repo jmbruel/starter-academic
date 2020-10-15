@@ -197,3 +197,6 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   icon = "google-scholar"
   icon_pack = "ai"
   link = "https://scholar.google.fr/citations?user=5shVHyoAAAAJ&hl=en&oi=ao"
+
+# Fixing warning
+disableKinds = ["home"]
