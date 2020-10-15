@@ -290,5 +290,4 @@ plugins_js  = []
 [icon.pack]
   ai = false  # Academicons icon pack https://jpswalsh.github.io/academicons/
 
-# Finxing Warnings
-disableKinds = ["home"] 
+custom_scss = ["scss/main.scss"]
