@@ -14,7 +14,7 @@ baseurl = "https://jmbruel.github.io/smartjmb/"
 
 # Enter a copyright notice to display in the site footer.
 # To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
-copyright = "&copy; {year} - ACDC. Last update: 14/10/2020"
+copyright = "&copy; 2020 - ACDC. Last update: 14/10/2020"
 
 publishDir = "docs"
 
