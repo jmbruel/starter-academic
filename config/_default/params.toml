@@ -290,4 +290,5 @@ plugins_js  = []
 [icon.pack]
   ai = false  # Academicons icon pack https://jpswalsh.github.io/academicons/
 
-custom_scss = ["scss/main.scss"]
+#custom_scss = ["scss/main.scss"]
+custom_css = ["styles.css"]
